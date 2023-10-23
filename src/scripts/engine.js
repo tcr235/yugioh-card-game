@@ -102,6 +102,32 @@ async function setCardsField(cardId) {
     await drawButton(duelResults);
 };
 
+async function updateScore() {
+    state.score.scoreBox.innerText = `Win : ${state.score.playerScore} | Lose : ${state.score.computerScore}`;
+};
+
+async function drawButton(text) {
+    state.actions.button.innerText = text;
+    state.actions.button.style.display = "block";
+};
+
+async function checkDuelResults(cardId, computerCardId) {
+    let duelResults = "Draw";
+    let playerCard = cardData[cardId];
+
+    if(playerCard.WinOf.includes(computerCardId)){
+        duelResults = "Win"
+        state.score.playerScore++;
+    }
+
+    if(playerCard.LoseOf.includes(computerCardId)){
+        duelResults = "Lost"
+        state.score.computerScore++;
+    }
+
+    return duelResults;
+};
+
 async function removeAllCardsImages() {
     let { computerBOX, player1BOX } = state.playerSides;
     let imgElements = computerBOX.querySelectorAll('img');
