@@ -5,7 +5,7 @@ const state = {
         scoreBox: document.getElementById('score_points')
     },
     cardSprites: {
-        avatar: document.getElementById('card_image'),
+        avatar: document.getElementById('card-image'),
         name: document.getElementById('card-name'),
         type: document.getElementById('card-type'),
     },
@@ -69,15 +69,21 @@ async function createCardImage(cardId, fieldSide) {
         cardImage.addEventListener("click", () => {
             setCardsField(cardImage.getAttribute("data-id"));
         });
-    }
 
-    cardImage.addEventListener("mouseover", () => {
-        drawSelectCard(cardId);
-    });
+        cardImage.addEventListener("mouseover", () => {
+            drawSelectCard(cardId);
+        });
+    }
 
     return cardImage;
 
 };
+
+async function drawSelectCard(index) {
+    state.cardSprites.avatar.src = cardData[index].img;
+    state.cardSprites.name.innerText = cardData[index].name;
+    state.cardSprites.type.innerText = "Attribute : " + cardData[index].type;
+}
 
 async function drawCards(cardsNumber, fieldSide) {
     for(let i = 0; i < cardsNumber; i++) {
